@@ -33,7 +33,7 @@
         /* --- UTILITY FOR ANIMATIONS --- */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: all 0.8s ease-out;
         }
 
@@ -51,6 +51,7 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .blob {
@@ -90,10 +91,11 @@
             padding: 20px 50px;
             position: fixed;
             width: 100%;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(10, 10, 10, 0.9);
             backdrop-filter: blur(10px);
             z-index: 100;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
         }
 
         .logo {
@@ -101,15 +103,21 @@
             font-weight: bold;
             color: var(--accent-color);
             letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
         }
 
         .nav-links a {
             color: #fff;
             text-decoration: none;
-            margin-left: 30px;
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
+            font-size: 1rem;
         }
 
         .nav-links a::after {
@@ -129,12 +137,12 @@
 
         /* --- HERO SECTION --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            padding: 0 10%;
+            padding: 100px 10% 0; /* Added top padding for fixed nav */
             position: relative;
         }
 
@@ -151,12 +159,13 @@
         .typing-text {
             font-size: 1.5rem;
             color: #ccc;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border-right: 2px solid var(--accent-color);
             white-space: nowrap;
             overflow: hidden;
             width: 0;
             animation: typing 3s steps(30, end) forwards, blink 0.75s step-end infinite;
+            max-width: 100%;
         }
 
         @keyframes typing {
@@ -181,6 +190,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            display: inline-block;
         }
 
         .btn::before {
@@ -205,7 +215,7 @@
 
         /* --- SECTIONS COMMON --- */
         section {
-            padding: 100px 10%;
+            padding: 80px 10%;
         }
 
         .section-title {
@@ -221,7 +231,7 @@
         /* --- PROJECT GRID --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Better for mobile */
             gap: 30px;
         }
 
@@ -231,8 +241,6 @@
             border-radius: 15px;
             padding: 20px;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -341,29 +349,80 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            padding: 0 15px;
         }
 
         .contact-btn {
             display: inline-block;
             margin-top: 20px;
-            font-size: 1.2rem;
-            padding: 15px 40px;
+            font-size: 1.1rem;
+            padding: 12px 35px;
         }
 
         /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 40px;
+            padding: 30px 20px;
             background: rgba(0,0,0,0.5);
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        /* --- RESPONSIVE --- */
+        /* --- MOBILE RESPONSIVE STYLES --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            section { padding: 60px 5%; }
+            nav {
+                padding: 15px 5%;
+                flex-direction: column; /* Stack Logo and Menu */
+                gap: 15px;
+                background: rgba(10, 10, 10, 0.95);
+            }
+
+            .nav-links {
+                display: flex; /* Force display on mobile */
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            .hero {
+                padding: 140px 5% 0; /* More top padding to clear the stacked nav */
+                align-items: center; /* Center align text on mobile */
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem; /* Smaller Title */
+            }
+
+            .typing-text {
+                font-size: 1.1rem;
+                border: none; /* Remove cursor if text wraps */
+                white-space: normal; /* Allow text to wrap */
+                animation: none; /* Disable typing animation on small screens for readability */
+                width: auto;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr; /* 1 column layout */
+            }
+            
+            .blob {
+                opacity: 0.2; /* Dim background blobs on mobile to focus on text */
+            }
         }
     </style>
 </head>
@@ -377,13 +436,12 @@
 
     <!-- Navigation -->
     <nav>
-        <div class="logo">PORTFOLIO</div>
+        <div class="logo">ALOK.DEV</div>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#work">Projects</a>
-            <a href="#journey">Journey</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
@@ -453,9 +511,9 @@
         <h2 class="section-title reveal"><span>Featured Projects</span></h2>
         
         <div class="projects-grid">
-            <!-- Project 1 -->
+            <!-- Project 1 (Updated with your Image) -->
             <div class="project-card reveal">
-                <!-- Placeholder image for ML -->
+                <!-- Using your uploaded filename here -->
                 <img src="istockphoto-2084953046-612x612.jpg" alt="Accident Detection Model" class="project-img">
                 <h3>Accident Detection Model</h3>
                 <p>Real-time system using OpenCV & Deep Learning. Achieved 94% accuracy in detecting accidents with under 2s latency.</p>
@@ -475,6 +533,17 @@
                     <span class="tag">HTML</span>
                     <span class="tag">CSS</span>
                     <span class="tag">JavaScript</span>
+                </div>
+            </div>
+
+            <!-- Project 3 (Achievement) -->
+            <div class="project-card reveal">
+                <img src="https://placehold.co/600x400/1a1a1a/FFF?text=Google+Cloud" alt="Google Cloud" class="project-img">
+                <h3>Google Cloud Legend</h3>
+                <p>Reached Legend Tier in Arcade Summer Edition 2025. Completed 100+ Hands-on Labs and earned 40+ Skill Badges.</p>
+                <div class="tags">
+                    <span class="tag">Cloud Computing</span>
+                    <span class="tag">Achievement</span>
                 </div>
             </div>
         </div>
@@ -541,5 +610,4 @@
         });
     </script>
 </body>
-
 </html>
