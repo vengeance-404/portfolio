@@ -164,7 +164,8 @@
             white-space: nowrap;
             overflow: hidden;
             width: 0;
-            animation: typing 3s steps(30, end) forwards, blink 0.75s step-end infinite;
+            /* Adjusted steps to 40 for smoother animation of longer text */
+            animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
             max-width: 100%;
         }
 
@@ -405,7 +406,9 @@
                 border: none; /* Remove cursor if text wraps */
                 white-space: normal; /* Allow text to wrap */
                 animation: none; /* Disable typing animation on small screens for readability */
-                width: auto;
+                width: 100%; /* Ensure it takes full width */
+                overflow: visible; /* FIX: Ensure wrapped text isn't hidden */
+                height: auto; /* FIX: Allow height to grow */
             }
 
             section {
