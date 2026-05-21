@@ -142,7 +142,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            padding: 100px 10% 0; /* Added top padding for fixed nav */
+            padding: 100px 10% 0;
             position: relative;
         }
 
@@ -164,7 +164,6 @@
             white-space: nowrap;
             overflow: hidden;
             width: 0;
-            /* Adjusted steps to 40 for smoother animation of longer text */
             animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
             max-width: 100%;
         }
@@ -232,7 +231,7 @@
         /* --- PROJECT GRID --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Better for mobile */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
@@ -244,6 +243,7 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             display: flex;
             flex-direction: column;
+            width: 100%; /* Ensures it doesn't overflow */
         }
 
         .project-card:hover {
@@ -373,42 +373,43 @@
         @media (max-width: 768px) {
             nav {
                 padding: 15px 5%;
-                flex-direction: column; /* Stack Logo and Menu */
-                gap: 15px;
-                background: rgba(10, 10, 10, 0.95);
+                flex-direction: row; /* Keep elements on the same line if possible */
+                flex-wrap: wrap; /* Allow wrapping if screen is too small */
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .logo {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
             }
 
             .nav-links {
-                display: flex; /* Force display on mobile */
-                flex-wrap: wrap;
-                justify-content: center;
                 gap: 15px;
-                width: 100%;
+                justify-content: center;
             }
 
             .nav-links a {
-                font-size: 0.9rem;
-                margin: 0;
+                font-size: 0.85rem;
             }
 
             .hero {
-                padding: 140px 5% 0; /* More top padding to clear the stacked nav */
-                align-items: center; /* Center align text on mobile */
+                padding: 180px 5% 60px; /* Adjust padding to account for wrapped nav */
                 text-align: center;
+                align-items: center;
             }
 
             .hero h1 {
-                font-size: 2.5rem; /* Smaller Title */
+                font-size: 2.8rem;
             }
 
             .typing-text {
                 font-size: 1.1rem;
-                border: none; /* Remove cursor if text wraps */
-                white-space: normal; /* Allow text to wrap */
-                animation: none; /* Disable typing animation on small screens for readability */
-                width: 100%; /* Ensure it takes full width */
-                overflow: visible; /* FIX: Ensure wrapped text isn't hidden */
-                height: auto; /* FIX: Allow height to grow */
+                white-space: normal;
+                animation: none; /* Disable animation to prevent layout shifts on mobile */
+                border-right: none;
+                width: auto;
             }
 
             section {
@@ -420,24 +421,22 @@
             }
 
             .projects-grid {
-                grid-template-columns: 1fr; /* 1 column layout */
+                grid-template-columns: 1fr;
             }
             
             .blob {
-                opacity: 0.2; /* Dim background blobs on mobile to focus on text */
+                opacity: 0.2; 
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Animation Blobs -->
     <div class="background-blob">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- Navigation -->
     <nav>
         <div class="logo">PORTFOLIO</div>
         <div class="nav-links">
@@ -449,7 +448,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <h1 class="reveal">Hi, I'm <span id="name">Alok</span></h1>
         <div class="typing-text reveal">Machine Learning Enthusiast | Web Dev</div>
@@ -460,7 +458,6 @@
         <a href="#work" class="btn reveal">View My Work</a>
     </section>
 
-    <!-- About Section -->
     <section id="about">
         <h2 class="section-title reveal"><span>About Me</span></h2>
         <div class="contact-container reveal" style="text-align: left; background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
@@ -478,7 +475,6 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
         <h2 class="section-title reveal"><span>Technical Skills</span></h2>
         <div class="skills-grid reveal">
@@ -509,14 +505,11 @@
         </div>
     </section>
 
-    <!-- Work/Projects Section -->
     <section id="work">
         <h2 class="section-title reveal"><span>Featured Projects</span></h2>
         
         <div class="projects-grid">
-            <!-- Project 1 (Updated with your Image) -->
             <div class="project-card reveal">
-                <!-- Using your uploaded filename here -->
                 <img src="istockphoto-2084953046-612x612.jpg" alt="Accident Detection Model" class="project-img">
                 <h3>Accident Detection Model</h3>
                 <p>Real-time system using OpenCV & Deep Learning. Achieved 94% accuracy in detecting accidents with under 2s latency.</p>
@@ -527,7 +520,6 @@
                 </div>
             </div>
 
-            <!-- Project 2 -->
             <a href="https://vengeance-404.github.io/phishing-website-detection/" target="_blank" class="project-card reveal" style="text-decoration: none;">
                 <img src="imageee.png" alt="Phishing Website Detector" class="project-img">
                 <h3>Phishing Website Detector</h3>
@@ -542,7 +534,6 @@
         </div>
     </section>
 
-    <!-- Journey Section -->
     <section id="journey">
         <h2 class="section-title reveal"><span>Education & Experience</span></h2>
         <div style="max-width: 800px; margin: 0 auto;" class="reveal">
@@ -562,7 +553,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <h2 class="section-title reveal"><span>Get In Touch</span></h2>
         <div class="contact-container reveal">
@@ -593,8 +583,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
